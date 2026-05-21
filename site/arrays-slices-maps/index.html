@@ -1,0 +1,1129 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A new project generated from the default template project.">
+      
+      
+        <meta name="author" content="<your name here>">
+      
+      
+      
+        <link rel="prev" href="./..">
+      
+      
+        <link rel="next" href="../estruturas-controle/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.41">
+    
+    
+      
+        <title>Arrays, Slices e Maps em Go - Documentation</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.fba56155.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#arrays-slices-e-maps-em-go" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Documentation" class="md-header__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Arrays, Slices e Maps em Go
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Documentation" class="md-nav__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-rocket" viewBox="0 0 24 24"><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09"/><path d="M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Get started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Arrays, Slices e Maps em Go
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Arrays, Slices e Maps em Go
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#arrays-colecoes-de-tamanho-fixo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Arrays: coleções de tamanho fixo
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Arrays: coleções de tamanho fixo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#como-declarar-e-inicializar-um-array" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Como declarar e inicializar um array
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#slices-arrays-dinamicos-e-flexiveis" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Slices: arrays dinâmicos e flexíveis
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Slices: arrays dinâmicos e flexíveis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#como-criar-um-slice" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Como criar um slice
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adicionar-elementos-com-append" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Adicionar elementos com <code>append</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#maps-chaves-e-valores" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Maps: chaves e valores
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Maps: chaves e valores">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#como-criar-um-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Como criar um map
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acessar-e-verificar-existencia-de-uma-chave" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Acessar e verificar existência de uma chave
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-percorrer-arrays-slices-e-maps" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Como percorrer arrays, slices e maps
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Como percorrer arrays, slices e maps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#percorrer-arrays-e-slices" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Percorrer arrays e slices
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#percorrer-maps" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Percorrer maps
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quando-usar-array-slice-ou-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Quando usar array, slice ou map?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusao-e-proximos-passos" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conclusão e próximos passos
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../estruturas-controle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Estruturas de controle em Go (if, for, switch)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gerenciamento-pacotes-module/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Gerenciamento de Pacotes em Go (Go Modules)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introducao-instalacao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Introdução à linguagem Go
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../markdown/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22.27 19.385H1.73A1.73 1.73 0 0 1 0 17.655V6.345a1.73 1.73 0 0 1 1.73-1.73h20.54A1.73 1.73 0 0 1 24 6.345v11.308a1.73 1.73 0 0 1-1.73 1.731zM5.769 15.923v-4.5l2.308 2.885 2.307-2.885v4.5h2.308V8.078h-2.308l-2.307 2.885-2.308-2.885H3.46v7.847zM21.232 12h-2.309V8.077h-2.307V12h-2.308l3.461 4.039z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Markdown in 5min
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sintaxe-variaveis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sintaxe básica e variáveis em Go
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#arrays-colecoes-de-tamanho-fixo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Arrays: coleções de tamanho fixo
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Arrays: coleções de tamanho fixo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#como-declarar-e-inicializar-um-array" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Como declarar e inicializar um array
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#slices-arrays-dinamicos-e-flexiveis" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Slices: arrays dinâmicos e flexíveis
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Slices: arrays dinâmicos e flexíveis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#como-criar-um-slice" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Como criar um slice
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adicionar-elementos-com-append" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Adicionar elementos com <code>append</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#maps-chaves-e-valores" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Maps: chaves e valores
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Maps: chaves e valores">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#como-criar-um-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Como criar um map
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acessar-e-verificar-existencia-de-uma-chave" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Acessar e verificar existência de uma chave
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-percorrer-arrays-slices-e-maps" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Como percorrer arrays, slices e maps
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Como percorrer arrays, slices e maps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#percorrer-arrays-e-slices" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Percorrer arrays e slices
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#percorrer-maps" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Percorrer maps
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quando-usar-array-slice-ou-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Quando usar array, slice ou map?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusao-e-proximos-passos" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conclusão e próximos passos
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+<h1 id="arrays-slices-e-maps-em-go">Arrays, Slices e Maps em Go<a class="headerlink" href="#arrays-slices-e-maps-em-go" title="Permanent link">&para;</a></h1>
+<p>Depois de aprender sobre variáveis e estruturas de controle, o próximo passo natural é entender como armazenar e manipular <strong>vários valores de uma vez</strong>.<br />
+Em Go, os três tipos de coleções mais usados são:</p>
+<ul>
+<li><strong>Arrays</strong></li>
+<li><strong>Slices</strong></li>
+<li><strong>Maps</strong></li>
+</ul>
+<p>Nesta página, você vai ver:</p>
+<ul>
+<li>o que é cada um;</li>
+<li>quando usar array, slice ou map;</li>
+<li>e como percorrer essas estruturas com <code>for range</code>.</li>
+</ul>
+<hr />
+<h2 id="arrays-colecoes-de-tamanho-fixo">Arrays: coleções de tamanho fixo<a class="headerlink" href="#arrays-colecoes-de-tamanho-fixo" title="Permanent link">&para;</a></h2>
+<p>Um <strong>array</strong> em Go é uma sequência de elementos do mesmo tipo, com <strong>tamanho fixo</strong> definido em tempo de compilação.<br />
+Ou seja, depois de criar um array, você não pode aumentar ou diminuir o número de elementos.</p>
+<h3 id="como-declarar-e-inicializar-um-array">Como declarar e inicializar um array<a class="headerlink" href="#como-declarar-e-inicializar-um-array" title="Permanent link">&para;</a></h3>
+<p>Sintaxe básica:</p>
+<ul>
+<li><code>var nome [tamanho]tipo</code></li>
+<li>ou <code>nome := [tamanho]tipo{valores}</code></li>
+</ul>
+<p>Exemplo:</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;fmt&quot;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="c1">// Array de 3 inteiros</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">notas</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="kt">int</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nx">notas</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">8</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="nx">notas</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">9</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="nx">notas</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">7</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Notas:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">notas</span><span class="p">)</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Você também pode inicializar direto:</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">var</span><span class="w"> </span><span class="nx">temperaturas</span><span class="w"> </span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="kt">float64</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="kt">float64</span><span class="p">{</span><span class="mf">25.5</span><span class="p">,</span><span class="w"> </span><span class="mf">26.0</span><span class="p">,</span><span class="w"> </span><span class="mf">24.8</span><span class="p">,</span><span class="w"> </span><span class="mf">27.2</span><span class="p">,</span><span class="w"> </span><span class="mf">26.9</span><span class="p">}</span>
+</span></code></pre></div>
+<p>ou usar a forma mais curta:</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nx">sequencia</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li>O tamanho (<code>[4]</code>) faz parte do tipo: <code>int</code> e <code>[]int</code> são tipos diferentes.  </li>
+<li>Acessar um índice fora do tamanho (por exemplo, <code>sequencia[4]</code> em um <code>len(sequencia) == 4</code>) causa erro em tempo de execução.</li>
+</ul>
+<hr />
+<h2 id="slices-arrays-dinamicos-e-flexiveis">Slices: arrays dinâmicos e flexíveis<a class="headerlink" href="#slices-arrays-dinamicos-e-flexiveis" title="Permanent link">&para;</a></h2>
+<p>Um <strong>slice</strong> é a forma mais comum de “lista” em Go.<br />
+Slices são baseados em arrays, mas são muito mais flexíveis: podem crescer e encolher conforme necessário.</p>
+<h3 id="como-criar-um-slice">Como criar um slice<a class="headerlink" href="#como-criar-um-slice" title="Permanent link">&para;</a></h3>
+<p>Existem três formas principais:</p>
+<ol>
+<li><strong>Slice literal</strong> (mais comum):</li>
+</ol>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nx">numeros</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">}</span>
+</span></code></pre></div>
+<p>Note que <strong>não se coloca tamanho</strong>: <code>[]int</code>, não <code>[4]int</code>.</p>
+<ol>
+<li><strong>Criar a partir de um array</strong>:</li>
+</ol>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">var</span><span class="w"> </span><span class="nx">array</span><span class="w"> </span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="kt">int</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">}</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nx">subslice</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">array</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="c1">// elementos de índice 1 a 3</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Subslice:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">subslice</span><span class="p">)</span>
+</span></code></pre></div>
+<ol>
+<li><strong>Usar <code>make</code></strong> para criar um slice vazio com capacidade:</li>
+</ol>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nx">slice</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="c1">// 0 elementos, capacidade 5</span>
+</span></code></pre></div>
+<ul>
+<li><code>len(slice)</code> → número de elementos atuais;</li>
+<li><code>cap(slice)</code> → capacidade máxima sem realocar o array interno.</li>
+</ul>
+<h3 id="adicionar-elementos-com-append">Adicionar elementos com <code>append</code><a class="headerlink" href="#adicionar-elementos-com-append" title="Permanent link">&para;</a></h3>
+<p>Para aumentar um slice, usa-se <code>append</code>:</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nx">nomes</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;Ana&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Bruno&quot;</span><span class="p">}</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nx">nomes</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">nomes</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Carla&quot;</span><span class="p">)</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="nx">nomes</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">nomes</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Daniel&quot;</span><span class="p">)</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Lista de nomes:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">nomes</span><span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><code>append</code> retorna um novo slice (possivelmente com um array interno redimensionado).</li>
+</ul>
+<hr />
+<h2 id="maps-chaves-e-valores">Maps: chaves e valores<a class="headerlink" href="#maps-chaves-e-valores" title="Permanent link">&para;</a></h2>
+<p>Um <strong>map</strong> é uma estrutura de dados associativa: você armazena <strong>pares chave/valor</strong>.<br />
+É semelhante a dicionários em outras linguagens.</p>
+<h3 id="como-criar-um-map">Como criar um map<a class="headerlink" href="#como-criar-um-map" title="Permanent link">&para;</a></h3>
+<p>Duas formas principais:</p>
+<ol>
+<li><strong>Usando <code>make</code></strong>:</li>
+</ol>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nx">idades</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="nx">idades</span><span class="p">[</span><span class="s">&quot;Ana&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">25</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="nx">idades</span><span class="p">[</span><span class="s">&quot;Carlos&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">30</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Idades:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">idades</span><span class="p">)</span>
+</span></code></pre></div>
+<ol>
+<li><strong>Usando map literal</strong>:</li>
+</ol>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nx">telefones</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="s">&quot;Ana&quot;</span><span class="p">:</span><span class="w">    </span><span class="s">&quot;9999-0000&quot;</span><span class="p">,</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="s">&quot;Carlos&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;8888-1111&quot;</span><span class="p">,</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="p">}</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Telefones:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">telefones</span><span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li>A chave (<code>string</code>, <code>int</code> e outros tipos comparáveis) identifica o valor armazenado.</li>
+<li>Mapas <strong>não garantem ordem</strong> na iteração; o Go pode mostrar os pares em ordem diferente entre execuções.</li>
+</ul>
+<h3 id="acessar-e-verificar-existencia-de-uma-chave">Acessar e verificar existência de uma chave<a class="headerlink" href="#acessar-e-verificar-existencia-de-uma-chave" title="Permanent link">&para;</a></h3>
+<p>Para acessar um valor:</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nx">idade</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">idades</span><span class="p">[</span><span class="s">&quot;Ana&quot;</span><span class="p">]</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Idade de Ana:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">idade</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Se a chave não existir, o valor retornado é o <strong>zero value</strong> do tipo (no exemplo, <code>0</code> para <code>int</code>).<br />
+Para saber se uma chave existe:</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">if</span><span class="w"> </span><span class="nx">valor</span><span class="p">,</span><span class="w"> </span><span class="nx">existe</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">telefones</span><span class="p">[</span><span class="s">&quot;Ana&quot;</span><span class="p">];</span><span class="w"> </span><span class="nx">existe</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Telefone de Ana:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">valor</span><span class="p">)</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Ana não está no mapa.&quot;</span><span class="p">)</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Assim você evita confundir “não existe” com “valor zero”.</p>
+<hr />
+<h2 id="como-percorrer-arrays-slices-e-maps">Como percorrer arrays, slices e maps<a class="headerlink" href="#como-percorrer-arrays-slices-e-maps" title="Permanent link">&para;</a></h2>
+<p>Em Go, o comando <code>for range</code> funciona para todos esses três tipos.</p>
+<h3 id="percorrer-arrays-e-slices">Percorrer arrays e slices<a class="headerlink" href="#percorrer-arrays-e-slices" title="Permanent link">&para;</a></h3>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nx">numeros</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">}</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="k">for</span><span class="w"> </span><span class="nx">indice</span><span class="p">,</span><span class="w"> </span><span class="nx">valor</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">numeros</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;índice: %d, valor: %d\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">indice</span><span class="p">,</span><span class="w"> </span><span class="nx">valor</span><span class="p">)</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><code>indice</code> → posição do elemento.</li>
+<li><code>valor</code> → valor do elemento.</li>
+</ul>
+<h3 id="percorrer-maps">Percorrer maps<a class="headerlink" href="#percorrer-maps" title="Permanent link">&para;</a></h3>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nx">ages</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="s">&quot;Ana&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Carlos&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Diana&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">28</span><span class="p">}</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="k">for</span><span class="w"> </span><span class="nx">nome</span><span class="p">,</span><span class="w"> </span><span class="nx">idade</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">ages</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;%s tem %d anos\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">nome</span><span class="p">,</span><span class="w"> </span><span class="nx">idade</span><span class="p">)</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li>A primeira variável recebe a chave.</li>
+<li>A segunda, o valor.</li>
+</ul>
+<hr />
+<h2 id="quando-usar-array-slice-ou-map">Quando usar array, slice ou map?<a class="headerlink" href="#quando-usar-array-slice-ou-map" title="Permanent link">&para;</a></h2>
+<p>Algumas orientações práticas para iniciantes:</p>
+<ul>
+<li>Use <strong>array</strong> se você precisa de um tamanho fixo conhecido em tempo de compilação (por exemplo, dias da semana, notas de uma prova com 5 questões).  </li>
+<li>Use <strong>slice</strong> em quase todos os outros casos em que você precisa de uma lista de elementos que pode crescer ou mudar de tamanho.  </li>
+<li>Use <strong>map</strong> quando quiser “procurar por chave”: nomes de pessoas, códigos de produtos, chaves de configuração, etc.</li>
+</ul>
+<p>Em código real, você verá muito mais <strong>slices</strong> e <strong>maps</strong> do que arrays puros.</p>
+<hr />
+<h2 id="conclusao-e-proximos-passos">Conclusão e próximos passos<a class="headerlink" href="#conclusao-e-proximos-passos" title="Permanent link">&para;</a></h2>
+<p>Nesta página você viu:</p>
+<ul>
+<li>a diferença entre <strong>array</strong> (tamanho fixo) e <strong>slice</strong> (dinâmico e flexível);</li>
+<li>como usar <strong>maps</strong> para armazenar pares chave/valor;</li>
+<li>e como percorrer arrays, slices e maps com <code>for range</code>.</li>
+</ul>
+<p>Com isso, você já domina as principais estruturas de coleção em Go, que são usadas quase em todos os programas.</p>
+<p>Na próxima página, você vai aprender sobre <strong>Go Modules</strong>, que são a forma oficial do Go para gerenciar dependências e pacotes no seu projeto, fechando a parte de “Fundamentos” da sua responsabilidade.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="./.." class="md-footer__link md-footer__link--prev" aria-label="Previous: Get started">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Get started
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../estruturas-controle/" class="md-footer__link md-footer__link--next" aria-label="Next: Estruturas de controle em Go (if, for, switch)">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Estruturas de controle em Go (if, for, switch)
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 The authors
+
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["announce.dismiss","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.path","navigation.sections","navigation.top","navigation.tracking","search.highlight"],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.dbc0afdc.min.js"></script>
+      
+    
+  </body>
+</html>

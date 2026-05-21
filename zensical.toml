@@ -47,6 +47,7 @@ Copyright &copy; 2026 The authors
 # nav = [
 #   { "Get started" = "index.md" },
 #   { "Markdown in 5min" = "markdown.md" },
+#   { "Intruducao e instalacao" = "intruducao-instalacao.md" }
 # ]
 
 # With the "extra_css" option you can add your own CSS styling to customize
